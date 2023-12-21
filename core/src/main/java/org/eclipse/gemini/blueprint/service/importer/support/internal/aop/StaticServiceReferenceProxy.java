@@ -41,7 +41,7 @@ public class StaticServiceReferenceProxy implements ServiceReferenceProxy {
 	 * @param target service reference
 	 */
 	public StaticServiceReferenceProxy(ServiceReference target) {
-		Assert.notNull(target);
+		Assert.notNull(target, "required field");
 		this.target = target;
 	}
 

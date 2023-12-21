@@ -30,7 +30,7 @@ public class ExporterController implements ExporterInternalActions {
 
 
 	public ExporterController(ExporterInternalActions executor) {
-		Assert.notNull(executor);
+		Assert.notNull(executor, "required field");
 		this.executor = executor;
 	}
 

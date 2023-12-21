@@ -95,8 +95,8 @@ public abstract class OsgiListenerUtils {
 	}
 
 	private static void registerListener(BundleContext context, ServiceListener listener, String filter) {
-		Assert.notNull(context);
-		Assert.notNull(listener);
+		Assert.notNull(context, "required field");
+		Assert.notNull(listener, "required field");
 
 		try {
 			// add listener

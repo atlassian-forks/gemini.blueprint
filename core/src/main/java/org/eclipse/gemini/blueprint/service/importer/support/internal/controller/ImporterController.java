@@ -27,7 +27,7 @@ public class ImporterController implements ImporterInternalActions {
 
 
 	public ImporterController(ImporterInternalActions executor) {
-		Assert.notNull(executor);
+		Assert.notNull(executor, "required field");
 		this.executor = executor;
 	}
 
