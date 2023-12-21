@@ -23,7 +23,7 @@ import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.config.Scope;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
-import org.springframework.beans.factory.xml.XmlBeanFactory;
+import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.util.ClassUtils;
@@ -79,14 +79,17 @@ public class ScopeTests extends TestCase {
 	private DefaultListableBeanFactory bf;
 
 
-	private class ScopedXmlFactory extends XmlBeanFactory {
+	private class ScopedXmlFactory extends DefaultListableBeanFactory {
+
+		private final XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(this);
 
 		public ScopedXmlFactory(Resource resource, BeanFactory parentBeanFactory) throws BeansException {
-			super(resource, parentBeanFactory);
+			super(parentBeanFactory);
+			reader.loadBeanDefinitions(resource);
 		}
 
 		public ScopedXmlFactory(Resource resource) throws BeansException {
-			super(resource);
+			this(resource, null);
 			registerScope("foo", new FooScope());
 			registerScope("bar", new FooScope());
 		}

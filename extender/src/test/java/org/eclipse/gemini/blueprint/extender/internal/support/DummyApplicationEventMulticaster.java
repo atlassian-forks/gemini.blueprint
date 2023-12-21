@@ -19,6 +19,8 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ApplicationEventMulticaster;
 import org.springframework.core.ResolvableType;
 
+import java.util.function.Predicate;
+
 /**
  * @author Costin Leau
  */
@@ -42,6 +44,14 @@ public class DummyApplicationEventMulticaster implements ApplicationEventMultica
 	}
 
 	public void removeApplicationListenerBean(String arg0) {
+	}
+
+	@Override
+	public void removeApplicationListeners(Predicate<ApplicationListener<?>> predicate) {
+	}
+
+	@Override
+	public void removeApplicationListenerBeans(Predicate<String> predicate) {
 	}
 
 	public void addApplicationListenerBean(String listenerBeanName) {
