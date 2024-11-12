@@ -186,6 +186,7 @@
         <module>extender</module>
         <module>extensions</module>
         <module>test-support</module>
+        <module>integration-tests</module>
     </modules>
 
     <dependencyManagement>
