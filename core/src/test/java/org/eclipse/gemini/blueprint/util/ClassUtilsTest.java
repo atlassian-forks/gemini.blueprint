@@ -57,7 +57,9 @@ public class ClassUtilsTest extends TestCase {
 
     public void testAutoDetectClassesForPublishingDisabled() {
         Class<?>[] resolved = getClassHierarchy(Integer.class, INTERFACES);
-        assertThat(resolved).hasSize(2);
+        // In Java 8 `Integer` used to implement `Comparable` and `Serializable`
+        // In Java 17 it has additional interfaces `Constable` and `ConstantDesc`
+        assertThat(resolved).hasSize(4);
     }
 
     public void testAutoDetectClassesForPublishingInterfaces() {
