@@ -71,12 +71,6 @@
         </dependency>
 
         <dependency>
-            <groupId>org.knopflerfish</groupId>
-            <artifactId>framework</artifactId>
-            <scope>provided</scope>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
             <groupId>org.apache.felix</groupId>
             <artifactId>org.apache.felix.main</artifactId>
             <scope>provided</scope>

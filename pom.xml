@@ -40,8 +40,6 @@
         <!-- compiled against osgi Revision -->
         <osgi.ver>5.0.0</osgi.ver>
         <!-- platform versions -->
-        <!-- Knopflerfish -->
-        <kf.ver>7.1.2</kf.ver>
         <!-- Felix 4.4.x supports OSGi R5 -->
         <felix.ver>4.4.0</felix.ver>
 
@@ -277,12 +275,6 @@
                 <groupId>org.apache.servicemix.bundles</groupId>
                 <artifactId>org.apache.servicemix.bundles.junit</artifactId>
                 <version>4.12_1</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.knopflerfish</groupId>
-                <artifactId>framework</artifactId>
-                <version>${kf.ver}</version>
             </dependency>
 
             <dependency>
@@ -778,26 +770,10 @@
     </build>
 
 
-    <!-- profiles for knopflerfish and felix                 -->
+    <!-- profiles for felix                                           -->
     <!-- to use these profiles invoke maven with -Pprofile-name, e.g. -->
     <!-- mvn -Pfelix test                                             -->
     <profiles>
-        <profile>
-            <id>knopflerfish</id>
-            <dependencies>
-                <dependency>
-                    <groupId>org.knopflerfish</groupId>
-                    <artifactId>framework</artifactId>
-                    <version>${kf.ver}</version>
-                    <scope>provided</scope>
-                </dependency>
-            </dependencies>
-            <properties>
-                <osgi.test.platform>org.eclipse.gemini.blueprint.test.platform.KnopflerfishPlatform</osgi.test.platform>
-                <org.knopflerfish.osgi.setcontextclassloader>true</org.knopflerfish.osgi.setcontextclassloader>
-            </properties>
-        </profile>
-
         <profile>
             <id>felix</id>
             <dependencies>
