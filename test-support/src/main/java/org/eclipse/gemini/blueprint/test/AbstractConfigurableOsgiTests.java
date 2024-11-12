@@ -19,7 +19,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 
-import org.eclipse.gemini.blueprint.test.platform.EquinoxPlatform;
+import org.eclipse.gemini.blueprint.test.platform.FelixPlatform;
 import org.eclipse.gemini.blueprint.test.platform.OsgiPlatform;
 import org.eclipse.gemini.blueprint.test.platform.Platforms;
 import org.osgi.framework.Constants;
@@ -103,7 +103,7 @@ public abstract class AbstractConfigurableOsgiTests extends AbstractOsgiTests {
 
 		// fall back
 		if (platform == null)
-			platform = new EquinoxPlatform();
+			platform = new FelixPlatform();
 
 		Properties config = platform.getConfigurationProperties();
 		// add boot delegation
@@ -128,7 +128,7 @@ public abstract class AbstractConfigurableOsgiTests extends AbstractOsgiTests {
 			logger.trace("System property [" + OSGI_FRAMEWORK_SELECTOR + "] has value=" + systemProperty);
         }
 
-		return (!StringUtils.hasText(systemProperty) ? Platforms.EQUINOX : systemProperty);
+		return (!StringUtils.hasText(systemProperty) ? Platforms.FELIX : systemProperty);
 	}
 
 	/**

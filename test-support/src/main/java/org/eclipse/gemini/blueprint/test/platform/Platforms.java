@@ -22,12 +22,6 @@ package org.eclipse.gemini.blueprint.test.platform;
 public abstract class Platforms {
 
 	/**
-	 * <a href="http://www.eclipse.org/equinox">Equinox</a> OSGi platform
-	 * constant.
-	 */
-	public static final String EQUINOX = EquinoxPlatform.class.getName();
-
-	/**
 	 * <a href="http://www.knopflerfish.org/">Knopflerfish</a> OSGi platform
 	 * constant.
 	 */
