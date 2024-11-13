@@ -398,8 +398,15 @@ public abstract class AbstractOsgiTests extends AbstractOptionalDependencyInject
 
         BundleContext ctx = getRuntimeBundleContext();
 
-        ServiceReference reference = ctx.getServiceReference(ACTIVATOR_REFERENCE);
-        Assert.notNull(reference, "no OSGi service reference found at " + ACTIVATOR_REFERENCE);
+        // analysing the code of Felix 7 it returns only those services that can be assigned by the requester
+        // here we are in the context of "System Bundle" and we are trying to get service from different bundle
+        // "System Bundle" doesn't have access to that class, so Felix returns `null`
+        // By calling all services we are omitting that check
+        ServiceReference<?>[] allServiceReferences = ctx.getAllServiceReferences(ACTIVATOR_REFERENCE, null);
+        if (allServiceReferences.length == 0) {
+            throw new IllegalArgumentException("no OSGi service reference found at " + ACTIVATOR_REFERENCE);
+        }
+        ServiceReference reference = allServiceReferences[0];
 
         service = ctx.getService(reference);
         Assert.notNull(service, "no service found for reference: " + reference);

@@ -16,6 +16,7 @@ package org.eclipse.gemini.blueprint.util;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.osgi.framework.AllServiceListener;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.Filter;
 import org.osgi.framework.InvalidSyntaxException;
@@ -85,7 +86,12 @@ public abstract class OsgiListenerUtils {
 
 		// now get the already registered services and call the listener
 		// (the listener should be able to handle duplicates)
-		dispatchServiceRegistrationEvents(OsgiServiceReferenceUtils.getServiceReferences(context, filter), listener);
+		//
+		// If we have `AllServiceListener` we also should find "all" already registered services
+		ServiceReference[] serviceReferences = listener instanceof AllServiceListener ?
+				OsgiServiceReferenceUtils.getAllServiceReferences(context, filter) :
+				OsgiServiceReferenceUtils.getServiceReferences(context, filter);
+		dispatchServiceRegistrationEvents(serviceReferences, listener);
 	}
 
 	private static void registerListener(BundleContext context, ServiceListener listener, String filter) {

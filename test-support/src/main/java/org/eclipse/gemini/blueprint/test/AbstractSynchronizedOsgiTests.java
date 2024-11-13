@@ -22,6 +22,7 @@ import org.eclipse.gemini.blueprint.extender.support.internal.ConfigUtils;
 import org.eclipse.gemini.blueprint.util.OsgiBundleUtils;
 import org.eclipse.gemini.blueprint.util.OsgiListenerUtils;
 import org.eclipse.gemini.blueprint.util.OsgiStringUtils;
+import org.osgi.framework.AllServiceListener;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceEvent;
@@ -117,13 +118,10 @@ public abstract class AbstractSynchronizedOsgiTests extends AbstractConfigurable
 
 		String filter = "(org.springframework.context.service.name=" + forBundleWithSymbolicName + ")";
 
-		ServiceListener listener = new ServiceListener() {
-
-			public void serviceChanged(ServiceEvent event) {
-				if (event.getType() == ServiceEvent.REGISTERED)
-					counter.decrement();
-			}
-		};
+		AllServiceListener listener = event -> {
+            if (event.getType() == ServiceEvent.REGISTERED)
+                counter.decrement();
+        };
 
 		OsgiListenerUtils.addServiceListener(context, listener, filter);
 

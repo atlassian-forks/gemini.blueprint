@@ -160,6 +160,28 @@ public abstract class OsgiServiceReferenceUtils {
 	}
 
 	/**
+	 * ATLASSIAN added
+	 * Returns references to <em>all</em> services matching the given class name and OSGi filter.
+	 *
+	 * @param bundleContext OSGi bundle context
+	 * @param clazz fully qualified class name (can be <code>null</code>)
+	 * @param filter valid OSGi filter (can be <code>null</code>)
+	 * @return non-<code>null</code> array of references to matching services
+	 *
+	 * @since ATLASSIAN
+	 */
+	public static ServiceReference[] getAllServiceReferences(BundleContext bundleContext, String clazz, String filter) {
+		Assert.notNull(bundleContext, "bundleContext should be not null");
+
+		try {
+			ServiceReference[] refs = bundleContext.getAllServiceReferences(clazz, filter);
+			return (refs == null ? new ServiceReference[0] : refs);
+		} catch (InvalidSyntaxException ise) {
+			throw (RuntimeException) new IllegalArgumentException("invalid filter: " + ise.getFilter()).initCause(ise);
+		}
+	}
+
+	/**
 	 * Returns references to <em>all</em> services matching the given class names and OSGi filter.
 	 * 
 	 * @param bundleContext OSGi bundle context
@@ -186,6 +208,20 @@ public abstract class OsgiServiceReferenceUtils {
 	 */
 	public static ServiceReference[] getServiceReferences(BundleContext bundleContext, String filter) {
 		return getServiceReferences(bundleContext, (String) null, filter);
+	}
+
+	/**
+	 * ATLASSIAN added
+	 * Returns references to <em>all</em> services matching the OSGi filter.
+	 *
+	 * @param bundleContext OSGi bundle context
+	 * @param filter valid OSGi filter (can be <code>null</code>)
+	 * @return non-<code>null</code> array of references to matching services
+	 *
+	 * @since ATLASSIAN
+	 */
+	public static ServiceReference[] getAllServiceReferences(BundleContext bundleContext, String filter) {
+		return getAllServiceReferences(bundleContext, null, filter);
 	}
 
 	/**
