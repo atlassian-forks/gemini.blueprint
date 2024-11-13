@@ -40,10 +40,6 @@
         <!-- compiled against osgi Revision -->
         <osgi.ver>5.0.0</osgi.ver>
         <!-- platform versions -->
-        <!-- equinox - repackaged in ${basedir}/lib/equinox -->
-        <equinox.ver>3.9.1.v20130814-1242</equinox.ver>
-        <!-- Knopflerfish -->
-        <kf.ver>7.1.2</kf.ver>
         <!-- Felix 4.4.x supports OSGi R5 -->
         <felix.ver>4.4.0</felix.ver>
 
@@ -188,6 +184,7 @@
         <module>extender</module>
         <module>extensions</module>
         <module>test-support</module>
+        <module>integration-tests</module>
     </modules>
 
     <dependencyManagement>
@@ -278,18 +275,6 @@
                 <groupId>org.apache.servicemix.bundles</groupId>
                 <artifactId>org.apache.servicemix.bundles.junit</artifactId>
                 <version>4.12_1</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.eclipse.birt.runtime</groupId>
-                <artifactId>org.eclipse.osgi</artifactId>
-                <version>${equinox.ver}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.knopflerfish</groupId>
-                <artifactId>framework</artifactId>
-                <version>${kf.ver}</version>
             </dependency>
 
             <dependency>
@@ -467,6 +452,9 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>2.19.1</version>
+                    <configuration>
+                        <argLine>--add-opens=java.base/java.io=ALL-UNNAMED --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.security=ALL-UNNAMED --add-opens=java.base/java.net=ALL-UNNAMED</argLine>
+                    </configuration>
                     <dependencies>
                         <!-- force surefire to use new junit 4.7+ runner, it would normally auto detect this -->
                         <!-- but since we're not using the official junit dependency it is unable to do so.-->
@@ -782,41 +770,10 @@
     </build>
 
 
-    <!-- profiles for equinox, knopflerfish, and felix                 -->
+    <!-- profiles for felix                                           -->
     <!-- to use these profiles invoke maven with -Pprofile-name, e.g. -->
     <!-- mvn -Pfelix test                                             -->
     <profiles>
-        <profile>
-            <id>equinox</id>
-            <dependencies>
-                <dependency>
-                    <groupId>org.eclipse.birt.runtime</groupId>
-                    <artifactId>org.eclipse.osgi</artifactId>
-                    <version>${equinox.ver}</version>
-                    <scope>provided</scope>
-                </dependency>
-            </dependencies>
-            <properties>
-                <osgi.test.platform>org.eclipse.gemini.blueprint.test.platform.EquinoxPlatform</osgi.test.platform>
-            </properties>
-        </profile>
-
-        <profile>
-            <id>knopflerfish</id>
-            <dependencies>
-                <dependency>
-                    <groupId>org.knopflerfish</groupId>
-                    <artifactId>framework</artifactId>
-                    <version>${kf.ver}</version>
-                    <scope>provided</scope>
-                </dependency>
-            </dependencies>
-            <properties>
-                <osgi.test.platform>org.eclipse.gemini.blueprint.test.platform.KnopflerfishPlatform</osgi.test.platform>
-                <org.knopflerfish.osgi.setcontextclassloader>true</org.knopflerfish.osgi.setcontextclassloader>
-            </properties>
-        </profile>
-
         <profile>
             <id>felix</id>
             <dependencies>
