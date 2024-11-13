@@ -28,7 +28,6 @@ import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.Version;
 
-import static java.lang.Thread.yield;
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Matchers.isA;
@@ -96,7 +95,7 @@ public class LifecycleManagerTest {
         withFailingApplicationContextClose();
 
         shutdownContext();
-        yield();
+        Thread.yield();
 
         verifyContextIsClosed();
         verifyOsgiContextProcessorInteractions();
@@ -130,7 +129,7 @@ public class LifecycleManagerTest {
         addContextToLifecycleManager();
 
         destroy();
-        yield();
+        Thread.yield();
 
         verifyContextIsClosed();
         verifyOsgiContextProcessorInteractions();
