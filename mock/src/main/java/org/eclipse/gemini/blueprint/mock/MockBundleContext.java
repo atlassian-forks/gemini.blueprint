@@ -38,7 +38,9 @@ import org.osgi.framework.Constants;
 import org.osgi.framework.Filter;
 import org.osgi.framework.FrameworkListener;
 import org.osgi.framework.InvalidSyntaxException;
+import org.osgi.framework.ServiceFactory;
 import org.osgi.framework.ServiceListener;
+import org.osgi.framework.ServiceObjects;
 import org.osgi.framework.ServiceReference;
 import org.osgi.framework.ServiceRegistration;
 
@@ -166,7 +168,12 @@ public class MockBundleContext implements BundleContext {
         }
     }
 
-    private static Class<?> getClass(Type type) {
+	@Override
+	public <S> ServiceObjects<S> getServiceObjects(ServiceReference<S> reference) {
+		return null;
+	}
+
+	private static Class<?> getClass(Type type) {
         if (type instanceof Class) {
           return (Class) type;
         }
@@ -280,7 +287,12 @@ public class MockBundleContext implements BundleContext {
         return registration;
     }
 
-    public void removeServiceListener(ServiceListener listener) {
+	@Override
+	public <S> ServiceRegistration<S> registerService(Class<S> clazz, ServiceFactory<S> factory, Dictionary<String, ?> properties) {
+		return new MockServiceRegistration(properties);
+	}
+
+	public void removeServiceListener(ServiceListener listener) {
 		serviceListeners.remove(listener);
 	}
 

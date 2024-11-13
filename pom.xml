@@ -38,10 +38,10 @@
         <env.buildNumber />
 
         <!-- compiled against osgi Revision -->
-        <osgi.ver>5.0.0</osgi.ver>
+        <osgi.ver>7.0.0</osgi.ver>
         <!-- platform versions -->
-        <!-- Felix 4.4.x supports OSGi R5 -->
-        <felix.ver>4.4.0</felix.ver>
+        <!-- Felix 7.0.x supports OSGi R7 -->
+        <felix.ver>7.0.5</felix.ver>
 
         <!-- javadoc configuration -->
         <javadoc.loc>${basedir}/docs/src/javadoc</javadoc.loc>
@@ -262,13 +262,13 @@
 
             <dependency>
                 <groupId>org.osgi</groupId>
-                <artifactId>org.osgi.core</artifactId>
+                <artifactId>osgi.core</artifactId>
                 <version>${osgi.ver}</version>
             </dependency>
 
             <dependency>
                 <groupId>org.osgi</groupId>
-                <artifactId>org.osgi.compendium</artifactId>
+                <artifactId>osgi.cmpn</artifactId>
                 <version>${osgi.ver}</version>
             </dependency>
 
@@ -374,7 +374,7 @@
         </dependency>
         <dependency>
             <groupId>org.osgi</groupId>
-            <artifactId>org.osgi.core</artifactId>
+            <artifactId>osgi.core</artifactId>
             <scope>compile</scope>
         </dependency>
     </dependencies>
