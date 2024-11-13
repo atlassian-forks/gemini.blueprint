@@ -77,7 +77,6 @@ public abstract class AbstractDependencyManagerTests extends AbstractSynchronize
 	}
 
 	private static final String GEMINI_BLUEPRINT_VERSION_PROP_KEY = "ignore.gemini.blueprint.version";
-	private static final String SPRING_VERSION_PROP_KEY = "ignore.spring.version";
 
 	/** uninitialised - read from the properties file */
 	private String springOsgiVersion = null;
@@ -98,19 +97,6 @@ public abstract class AbstractDependencyManagerTests extends AbstractSynchronize
 		}
 
 		return springOsgiVersion;
-	}
-
-	/**
-	 * Returns the version of the Spring bundles installed by the testing
-	 * framework.
-	 * 
-	 * @return Spring framework dependency version
-	 */
-	protected String getSpringVersion() {
-		if (springBundledVersion == null) {
-			springBundledVersion = readProperty(SPRING_VERSION_PROP_KEY);
-		}
-		return springBundledVersion;
 	}
 
 	private String readProperty(final String name) {
@@ -180,7 +166,6 @@ public abstract class AbstractDependencyManagerTests extends AbstractSynchronize
 
 		// pass properties to test instance running inside OSGi space
 		System.getProperties().put(GEMINI_BLUEPRINT_VERSION_PROP_KEY, props.get(GEMINI_BLUEPRINT_VERSION_PROP_KEY));
-		System.getProperties().put(SPRING_VERSION_PROP_KEY, props.get(SPRING_VERSION_PROP_KEY));
 
 		Properties excluded = PropertiesUtil.filterKeysStartingWith(props, IGNORE);
 

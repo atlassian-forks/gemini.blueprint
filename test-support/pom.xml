@@ -83,6 +83,12 @@
             <artifactId>gemini-blueprint-mock</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>com.atlassian.platform.dependencies</groupId>
+            <artifactId>platform-spring-bundle</artifactId>
+            <scope>runtime</scope>
+        </dependency>
     </dependencies>
 
     <build>

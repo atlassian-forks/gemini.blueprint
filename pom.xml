@@ -292,6 +292,12 @@
                 </exclusions>
             </dependency>
 
+            <dependency>
+                <groupId>com.atlassian.platform.dependencies</groupId>
+                <artifactId>platform-spring-bundle</artifactId>
+                <version>7.3.0-jakarta-bc3108113</version>
+            </dependency>
+
         </dependencies>
 
     </dependencyManagement>

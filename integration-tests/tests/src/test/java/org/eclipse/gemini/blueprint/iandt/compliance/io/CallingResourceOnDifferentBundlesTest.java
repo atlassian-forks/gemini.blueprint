@@ -70,7 +70,8 @@ public class CallingResourceOnDifferentBundlesTest extends BaseIntegrationTest {
 	}
 
 	public void testCallGetResourceOnADifferentBundleRetrievedThroughBundleEvent() throws Exception {
-		String EXTRA_BUNDLE = "org.apache.servicemix.bundles.spring-core";
+		// those tests are using Atlassian Spring bundle now instead of servicemix repackages
+		String EXTRA_BUNDLE = "platform-spring-bundle";
 
 		Bundle[] bundles = bundleContext.getBundles();
 		Bundle bundle = null;
