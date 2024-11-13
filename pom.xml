@@ -62,6 +62,8 @@
         <gemini.blueprint.version.range.nq>[${project.version},${project.version}]</gemini.blueprint.version.range.nq>
         <gemini.blueprint.version.range>"${gemini.blueprint.version.range.nq}"</gemini.blueprint.version.range>
         <logging.version.range>"[1.0,2.0)"</logging.version.range>
+
+        <osgi.test.platform>org.eclipse.gemini.blueprint.test.platform.FelixPlatform</osgi.test.platform>
     </properties>
 
     <!-- ============================================= -->
@@ -356,6 +358,24 @@
             <artifactId>logback-classic</artifactId>
             <version>${logback.version}</version>
             <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.felix</groupId>
+            <artifactId>org.apache.felix.main</artifactId>
+            <version>${felix.ver}</version>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.felix</groupId>
+                    <artifactId>org.apache.felix.framework</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.core</artifactId>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 
@@ -707,48 +727,9 @@
     </build>
 
 
-    <!-- profiles for felix                                           -->
     <!-- to use these profiles invoke maven with -Pprofile-name, e.g. -->
-    <!-- mvn -Pfelix test                                             -->
+    <!-- mvn -Psecurity test                                          -->
     <profiles>
-        <profile>
-            <id>felix</id>
-            <dependencies>
-                <dependency>
-                    <groupId>org.apache.felix</groupId>
-                    <artifactId>org.apache.felix.main</artifactId>
-                    <version>${felix.ver}</version>
-                    <scope>provided</scope>
-                    <exclusions>
-                        <exclusion>
-                            <groupId>org.apache.felix</groupId>
-                            <artifactId>org.apache.felix.framework</artifactId>
-                        </exclusion>
-                    </exclusions>
-                </dependency>
-                <dependency>
-                    <groupId>org.osgi</groupId>
-                    <artifactId>org.osgi.core</artifactId>
-                    <scope>compile</scope>
-                </dependency>
-            </dependencies>
-            <properties>
-                <osgi.test.platform>org.eclipse.gemini.blueprint.test.platform.FelixPlatform</osgi.test.platform>
-            </properties>
-        </profile>
-
-        <!-- integration testing profile -->
-        <profile>
-            <id>it</id>
-            <activation>
-                <property>
-                    <name>env-test</name>
-                </property>
-            </activation>
-            <modules>
-                <module>integration-tests</module>
-            </modules>
-        </profile>
 
         <!-- Java 2 security enabled profile -->
         <profile>
@@ -790,30 +771,6 @@
                 release + documentation package via the assembly plugin.
             -->
             <id>release</id>
-
-            <modules>
-                <module>core</module>
-                <module>extender</module>
-                <module>extensions</module>
-                <module>integration-tests</module>
-                <module>io</module>
-                <module>mock</module>
-                <module>test-support</module>
-            </modules>
-
-            <dependencies>
-                <dependency>
-                    <!--
-                       The test sources are compiled against this generic dependency.
-                       usually, test sources are compiled with regard to the framework chosen for
-                       running the integration tests (e.g. felix, knopflerfish...). however, during release
-                       they are simply compiled and not executed, thus we need this generic dependency.
-                    -->
-                    <groupId>org.osgi</groupId>
-                    <artifactId>org.osgi.core</artifactId>
-                    <scope>compile</scope>
-                </dependency>
-            </dependencies>
 
             <build>
                 <plugins>
