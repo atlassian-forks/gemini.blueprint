@@ -16,9 +16,12 @@ package org.eclipse.gemini.blueprint.service.importer.support.internal.aop;
 
 import org.eclipse.gemini.blueprint.service.importer.ServiceReferenceProxy;
 import org.eclipse.gemini.blueprint.service.importer.support.internal.util.ServiceComparatorUtil;
+import org.eclipse.gemini.blueprint.util.internal.MapBasedDictionary;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.ServiceReference;
 import org.springframework.util.Assert;
+
+import java.util.Dictionary;
 
 /**
  * Synchronized, swapping {@link ServiceReference} implementation that delegates to an underlying implementation which
@@ -123,5 +126,10 @@ class SwappingServiceReferenceProxy implements ServiceReferenceProxy {
 			return 0;
 		}
 		return ServiceComparatorUtil.compare(delegate, other);
+	}
+
+	@Override
+	public Dictionary<String, Object> getProperties() {
+		return (delegate == null ? new MapBasedDictionary<>() : delegate.getProperties());
 	}
 }

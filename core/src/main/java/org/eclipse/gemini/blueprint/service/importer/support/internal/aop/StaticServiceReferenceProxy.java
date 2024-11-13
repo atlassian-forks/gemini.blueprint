@@ -20,6 +20,8 @@ import org.osgi.framework.Bundle;
 import org.osgi.framework.ServiceReference;
 import org.springframework.util.Assert;
 
+import java.util.Dictionary;
+
 /**
  * Simple {@link ServiceReference} proxy which simply does delegation, without any extra features. It's main purpose is
  * to allow the consistent behaviour between dynamic and static proxies.
@@ -81,5 +83,10 @@ public class StaticServiceReferenceProxy implements ServiceReferenceProxy {
 
 	public int compareTo(Object other) {
 		return ServiceComparatorUtil.compare(target, other);
+	}
+
+	@Override
+	public Dictionary<String, Object> getProperties() {
+		return target.getProperties();
 	}
 }

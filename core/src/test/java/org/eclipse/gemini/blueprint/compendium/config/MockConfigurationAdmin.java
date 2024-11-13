@@ -43,6 +43,16 @@ public class MockConfigurationAdmin implements ConfigurationAdmin {
 		return null;
 	}
 
+	@Override
+	public Configuration getFactoryConfiguration(String s, String s1, String s2) throws IOException {
+		return null;
+	}
+
+	@Override
+	public Configuration getFactoryConfiguration(String s, String s1) throws IOException {
+		return null;
+	}
+
 	public Configuration[] listConfigurations(String filter) throws IOException, InvalidSyntaxException {
 		return null;
 	}
