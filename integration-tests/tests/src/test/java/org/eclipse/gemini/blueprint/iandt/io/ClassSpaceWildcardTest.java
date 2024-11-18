@@ -45,7 +45,10 @@ public class ClassSpaceWildcardTest extends BaseIoTest {
 	// similar as the root test but inside META-INF
 	public void testWildcardAtFolderLevel() throws Exception {
 		Resource res[] = patternLoader.getResources("classpath:/META-INF/*");
-		assertEquals("not enough packages found", 1, res.length);
+		// after updating configuration to include license file `META-INF/*` contains 2 resources:
+		// - `MANIFEST.MF`
+		// - `license-apache.txt`
+		assertEquals("not enough packages found", 2, res.length);
 		printPathWithinContext(res);
 	}
 
