@@ -800,14 +800,9 @@
     <!-- ======================================= -->
 
     <distributionManagement>
-        <downloadUrl>http://www.eclipse.org/gemini/blueprint/download/</downloadUrl>
-        <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
         <repository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+            <id>atlassian-3rdparty</id>
+            <url>https://packages.atlassian.com/maven/3rdparty</url>
         </repository>
     </distributionManagement>
 
