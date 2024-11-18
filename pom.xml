@@ -50,8 +50,6 @@
         <clover.argLine />
         <clover.skip>false</clover.skip>
 
-        <findbugs.skip>false</findbugs.skip>
-
         <!-- security options for integration testing -->
         <security.argLine />
         <policy.url>..${file.separator}policy.all</policy.url>
@@ -305,9 +303,9 @@
     <!-- shared dependencies across modules -->
     <dependencies>
         <dependency>
-            <groupId>javax.inject</groupId>
-            <artifactId>javax.inject</artifactId>
-            <version>1</version>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
+            <version>4.0.4</version>
         </dependency>
 
         <!-- junit -->
@@ -399,18 +397,6 @@
         <pluginManagement>
             <plugins>
                 <plugin>
-                    <!--
-                      Do not deploy using the default deploy plugin, but rather using the
-                      nexus-staging-maven-plugin (see "release" profile).
-                    -->
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-deploy-plugin</artifactId>
-                    <version>2.8.2</version>
-                    <configuration>
-                        <skip>true</skip>
-                    </configuration>
-                </plugin>
-                <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-release-plugin</artifactId>
                     <version>2.5.3</version>
@@ -446,7 +432,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-site-plugin</artifactId>
-                    <version>3.6</version>
+                    <version>3.21.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -524,16 +510,6 @@
                     <version>2.5</version>
                 </plugin>
                 <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>jdepend-maven-plugin</artifactId>
-                    <version>2.0</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>findbugs-maven-plugin</artifactId>
-                    <version>3.0.4</version>
-                </plugin>
-                <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-antrun-plugin</artifactId>
                     <version>1.8</version>
@@ -556,7 +532,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-project-info-reports-plugin</artifactId>
-                    <version>2.9</version>
+                    <version>3.8.0</version>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -729,6 +705,36 @@
                     </gitDescribe>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-license</id>
+                        <phase>process-sources</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.outputDirectory}/META-INF</outputDirectory>
+                            <overwrite>true</overwrite>
+                            <resources>
+                                <resource>
+                                    <directory>${user.dir}</directory>
+                                    <includes>
+                                        <include>license-apache.txt</include>
+                                    </includes>
+                                    <filtering>true</filtering>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+            </plugin>
         </plugins>
     </build>
 
@@ -813,45 +819,6 @@
                             </execution>
                         </executions>
                     </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-gpg-plugin</artifactId>
-                        <version>1.6</version>
-                        <executions>
-                            <execution>
-                                <id>sign-artifacts</id>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>sign</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.sonatype.plugins</groupId>
-                        <artifactId>nexus-staging-maven-plugin</artifactId>
-                        <version>1.6.7</version>
-                        <extensions>true</extensions>
-                        <executions>
-                            <execution>
-                                <id>default-deploy</id>
-                                <phase>deploy</phase>
-                                <goals>
-                                    <goal>deploy</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                        <configuration>
-                            <serverId>ossrh</serverId>
-                            <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-                            <autoReleaseAfterClose>false</autoReleaseAfterClose>
-                            <!-- by default, local artifacts are gathered and deployed when the last project module
-                             is built. However, the last project module may coincidentally not be deployed (e.g.
-                              by skipping this plugin's execution), which results in nothing being deployed. Consequently,
-                              deploy each module immediately after it was built. -->
-                            <skipLocalStaging>true</skipLocalStaging>
-                        </configuration>
-                    </plugin>
                 </plugins>
             </build>
         </profile>
@@ -863,14 +830,13 @@
     <!-- ======================================= -->
 
     <distributionManagement>
-        <downloadUrl>http://www.eclipse.org/gemini/blueprint/download/</downloadUrl>
         <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+            <id>atlassian-3rdparty-snapshot</id>
+            <url>https://packages.atlassian.com/maven/3rdparty-snapshot</url>
         </snapshotRepository>
         <repository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+            <id>atlassian-3rdparty</id>
+            <url>https://packages.atlassian.com/maven/3rdparty</url>
         </repository>
     </distributionManagement>
 
@@ -923,27 +889,6 @@
                 <artifactId>maven-project-info-reports-plugin</artifactId>
             </plugin>
 
-            <!-- ============== -->
-            <!--     FindBugs   -->
-            <!-- ============== -->
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>findbugs-maven-plugin</artifactId>
-                <configuration>
-                    <!--
-                    <xmlOutput>true</xmlOutput>
-                    <xmlOutputDirectory>target</xmlOutputDirectory>
-                    -->
-                    <threshold>Normal</threshold>
-                    <effort>Default</effort>
-                    <!--
-                    <debug>true</debug>
-                    <relaxed>true</relaxed>
-                    -->
-                    <skip>${findbugs.skip}</skip>
-                </configuration>
-            </plugin>
-
             <!-- =========== -->
             <!--     PMD     -->
             <!-- =========== -->
@@ -954,14 +899,6 @@
                 <configuration>
                     <targetJdk>1.7</targetJdk>
                 </configuration>
-            </plugin>
-
-            <!-- ============== -->
-            <!--     jDepend    -->
-            <!-- ============== -->
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>jdepend-maven-plugin</artifactId>
             </plugin>
         </plugins>
     </reporting>
