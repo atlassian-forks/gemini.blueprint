@@ -39,8 +39,8 @@
         </dependency>
 
         <dependency>
-            <groupId>org.apache.servicemix.bundles</groupId>
-            <artifactId>org.apache.servicemix.bundles.spring-test</artifactId>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
         </dependency>
 
         <dependency>
@@ -82,6 +82,12 @@
             <groupId>org.eclipse.gemini.blueprint</groupId>
             <artifactId>gemini-blueprint-mock</artifactId>
             <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.atlassian.platform.dependencies</groupId>
+            <artifactId>platform-spring-bundle</artifactId>
+            <scope>runtime</scope>
         </dependency>
     </dependencies>
 

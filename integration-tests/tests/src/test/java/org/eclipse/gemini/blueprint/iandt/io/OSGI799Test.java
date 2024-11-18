@@ -34,7 +34,14 @@ import org.springframework.util.ObjectUtils;
  * 
  * The test will install two bundle, one with a custom classpath exporting a package and the other importing that
  * particular package.
- * 
+ *
+ * ATLASSIAN notes:
+ * Apparently Gemini implementation treats every "Bundle-ClassPath" entry as a separate root.
+ * `osgi-799-exp.jar` defines 3 entries there:
+ * - `.` - typical simple root of the jar
+ * - `cp` - a directory inside the jar
+ * - `nested.jar` - a nested jar that is loaded by the bundle classloader (we are using similar pattern to register embedded libraries in plugins)
+ *
  * @author Costin Leau
  */
 public class OSGI799Test extends BaseIoTest {
@@ -94,6 +101,10 @@ public class OSGI799Test extends BaseIoTest {
 
 	public void testExportedCustomCP() throws Exception {
 		ResourcePatternResolver resolver = getExporterPatternLoader();
+		// It detects:
+		// - `/some/path/root/root.res` from the default classpath root (`.`)
+		// - `some/path/cp/cp.res` from the `cp` directory (defined as classpath root)
+		// - `some/path/nested/nested.res` from the `nested.jar` (defined as classpath root)
 		Resource[] resources = resolver.getResources("classpath:/some/**/*.res");
 		System.out.println(Arrays.toString(resources));
 		assertEquals(3, resources.length);
@@ -101,6 +112,8 @@ public class OSGI799Test extends BaseIoTest {
 
 	public void testImportedCustomCP() throws Exception {
 		ResourcePatternResolver resolver = getImporterPatternLoader();
+		// Importer bundle imports all the paths (they are not only packages!)
+		// so it has access to exactly the same resources as the exporter defined in test above
 		Resource[] resources = resolver.getResources("classpath:some/**/*.res");
 		System.out.println(Arrays.toString(resources));
 		assertEquals(3, resources.length);
@@ -108,29 +121,58 @@ public class OSGI799Test extends BaseIoTest {
 	
 	public void testExportedCustomFoldersCP() throws Exception {
 		ResourcePatternResolver resolver = getExporterPatternLoader();
+		// It detects:
+		// - `/cp/some/path/cp/cp.res` from the default classpath root (`.`)
+		// - `/some/path/root/root.res` from the default classpath root (`.`)
+		// - `some/path/cp/cp.res` from the `cp` directory (defined as classpath root)
+		// - `some/path/nested/nested.res` from the `nested.jar` (defined as classpath root)
 		Resource[] resources = resolver.getResources("classpath:/**/path/**/*");
 		System.out.println(Arrays.toString(resources));
-		assertEquals(8, resources.length);
+		// Original value - 8
+		// Actual expected value should be 4, as shown above
+		// The tests used to execute on Spring 5 that contains a bug:
+		// https://github.com/spring-projects/spring-framework/issues/27506
+		// in this specific scenario, it returned not only files, but also directories - hence the result was 8.
+		assertEquals(4, resources.length);
 	}
 	
 	public void testImporterCustomFoldersCP() throws Exception {
 		ResourcePatternResolver resolver = getImporterPatternLoader();
+		// The pattern is exactly the same as in case above
+		// Importer imports:
+		// - `some.path.root`
+		// - `some.path.cp`
+		// - `some.path.nested`
+		// There is no import for `cp.some.path.cp`, so that resource won't be available for importer
 		Resource[] resources = resolver.getResources("classpath:/**/path/**/*");
 		System.out.println(Arrays.toString(resources));
-		assertEquals(5, resources.length);
+		// Original value - 5
+		// See explanation in above test case
+		assertEquals(3, resources.length);
 	}
 
 	public void testExportedCustomPatternFoldersCP() throws Exception {
 		ResourcePatternResolver resolver = getExporterPatternLoader();
+		// The pattern is almost the same as in previous case.
+		// The difference is in `p?th` instead of `path`.
+		// However, bundle doesn't contain any other directories that could match that pattern.
+		// Result resources are exactly the same as in the exporter case above.
 		Resource[] resources = resolver.getResources("classpath:/**/p?th/**/*");
 		System.out.println(Arrays.toString(resources));
-		assertEquals(8, resources.length);
+		// Original value - 8
+		// For explanation check exporter case above
+		assertEquals(4, resources.length);
 	}
 	
 	public void testImporterCustomPatternFoldersCP() throws Exception {
 		ResourcePatternResolver resolver = getImporterPatternLoader();
+		// Pattern is exactly the same as in case above.
+		// Here we have exactly the same case as in previous importer case.
+		// Importer doesn't import all the packages/directories, so instead of 4 it has access to only 3 resources.
 		Resource[] resources = resolver.getResources("classpath:/**/p?th/**/*");
 		System.out.println(Arrays.toString(resources));
-		assertEquals(5, resources.length);
+		// Original value - 5
+		// For explanation check cases above
+		assertEquals(3, resources.length);
 	}
 }

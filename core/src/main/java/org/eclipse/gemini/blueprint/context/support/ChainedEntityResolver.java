@@ -40,7 +40,7 @@ class ChainedEntityResolver implements EntityResolver {
 
 
 	public void addEntityResolver(EntityResolver resolver, String resolverToString) {
-		Assert.notNull(resolver);
+		Assert.notNull(resolver, "required field");
 		resolvers.put(resolver, resolverToString);
 	}
 

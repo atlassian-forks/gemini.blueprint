@@ -38,7 +38,7 @@ public abstract class BehaviorBaseTest extends BaseIntegrationTest {
 	 * @param alive
 	 */
 	protected void assertContextServiceIs(Bundle bundle, boolean alive, long maxWait) {
-		Assert.notNull(bundle);
+		Assert.notNull(bundle, "required field");
 
 		try {
 			waitOnContextCreation(bundle.getSymbolicName(), maxWait / 1000 + 1);

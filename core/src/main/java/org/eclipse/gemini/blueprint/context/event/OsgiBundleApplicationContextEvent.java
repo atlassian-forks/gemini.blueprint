@@ -46,7 +46,7 @@ public abstract class OsgiBundleApplicationContextEvent extends ApplicationConte
 	 */
 	public OsgiBundleApplicationContextEvent(ApplicationContext source, Bundle bundle) {
 		super(source);
-		Assert.notNull(bundle);
+		Assert.notNull(bundle, "required field");
 		this.bundle = bundle;
 	}
 

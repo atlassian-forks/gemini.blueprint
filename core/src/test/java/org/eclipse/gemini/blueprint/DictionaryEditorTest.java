@@ -16,6 +16,7 @@ package org.eclipse.gemini.blueprint;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.propertyeditors.PropertiesEditor;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -32,6 +33,16 @@ public class DictionaryEditorTest extends AbstractJUnit4SpringContextTests imple
     private Dictionary dictionary;
 
     @Autowired
+    // Spring detects 2 matching beans:
+    // - dictionary (defined in `dict-editor.xml`)
+    // - systemProperties - one of the default beans
+    //
+    // Spring 6.1 stopped using previous "name discoverer"
+    // Use of `Qualifier` annotation explicitly defines the bean we want to inject
+    // Another option would be to compile code with `-parameters` flag
+    //
+    // see https://github.com/spring-projects/spring-framework/wiki/Upgrading-to-Spring-Framework-6.x/b05067858f10a9b3a42a09556c07fbaa1dfdf8d3#parameter-name-retention
+    @Qualifier("dictionary")
     public void setDictionary(Dictionary dictionary) {
         this.dictionary = dictionary;
     }
