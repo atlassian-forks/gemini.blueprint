@@ -5,7 +5,7 @@
     <groupId>org.eclipse.gemini.blueprint</groupId>
     <artifactId>gemini-blueprint</artifactId>
     <!-- Note: When updating the version, ensure it is a valid OSGi version -->
-    <version>4.0.0-atlassian-3-SNAPSHOT</version>
+    <version>4.0.0-atlassian-3-6994fd4</version>
     <packaging>pom</packaging>
     <name>Gemini Blueprint</name>
     <url>http://www.eclipse.org/gemini/blueprint/</url>
@@ -96,7 +96,7 @@
         <url>https://bitbucket.org/server-platform/gemini-fork</url>
         <connection>scm:git:git@bitbucket.org:server-platform/gemini-fork.git</connection>
         <developerConnection>scm:git:git@bitbucket.org:server-platform/gemini-fork.git</developerConnection>
-        <tag>HEAD</tag>
+        <tag>gemini-blueprint-4.0.0-atlassian-3-6994fd4</tag>
   </scm>
 
     <developers>
