@@ -5,7 +5,7 @@
     <parent>
         <artifactId>gemini-blueprint-integration-test-bundles</artifactId>
         <groupId>org.eclipse.gemini.blueprint.iandt</groupId>
-        <version>4.0.0-atlassian-4-SNAPSHOT</version>
+        <version>4.0.0-atlassian-4</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
