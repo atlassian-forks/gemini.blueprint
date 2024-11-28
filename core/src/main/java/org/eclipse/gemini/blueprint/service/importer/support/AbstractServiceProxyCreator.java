@@ -15,6 +15,7 @@
 package org.eclipse.gemini.blueprint.service.importer.support;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.aopalliance.aop.Advice;
@@ -102,8 +103,21 @@ abstract class AbstractServiceProxyCreator implements ServiceProxyCreator {
 		advices.add(infrastructureMixin);
 		advices.add(dispatcherInterceptor);
 
-		return new ProxyPlusCallback(ProxyUtils.createProxy(getInterfaces(reference), null, classLoader, bundleContext,
+		return new ProxyPlusCallback(ProxyUtils.createProxy(getInterfacesWithNoOpInterface(reference), null, classLoader, bundleContext,
 				advices), dispatcherInterceptor);
+	}
+
+	/**
+	 * We need to define additional interface if we are not passing any `target` for a proxy.
+	 * @see ServiceProxyNoOpInterface
+	 */
+	private Class<?>[] getInterfacesWithNoOpInterface(ServiceReference reference) {
+		Class<?>[] interfaces = getInterfaces(reference);
+
+		Class<?>[] allInterfaces = Arrays.copyOf(interfaces, interfaces.length + 1);
+		allInterfaces[interfaces.length] = ServiceProxyNoOpInterface.class;
+
+		return allInterfaces;
 	}
 
 	private Advice determineTCCLAdvice(ServiceReference reference) {
