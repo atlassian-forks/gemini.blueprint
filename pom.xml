@@ -293,7 +293,7 @@
             <dependency>
                 <groupId>com.atlassian.platform.dependencies</groupId>
                 <artifactId>platform-spring-bundle</artifactId>
-                <version>7.3.0-jakarta-bc3108113</version>
+                <version>8.0.0-jakarta-001</version>
             </dependency>
 
         </dependencies>
