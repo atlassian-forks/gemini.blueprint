@@ -93,9 +93,9 @@
     <!--</ciManagement>-->
 
     <scm>
-        <url>https://bitbucket.org/server-platform/gemini-fork</url>
-        <connection>scm:git:git@bitbucket.org:server-platform/gemini-fork.git</connection>
-        <developerConnection>scm:git:git@bitbucket.org:server-platform/gemini-fork.git</developerConnection>
+        <url>https://github.com/atlassian-forks/gemini.blueprint</url>
+        <connection>scm:git:git@github.com:atlassian-forks/gemini.blueprint.git</connection>
+        <developerConnection>scm:git:git@github.com:atlassian-forks/gemini.blueprint.git</developerConnection>
         <tag>HEAD</tag>
   </scm>
 
