@@ -4,7 +4,7 @@
 
     <groupId>org.eclipse.gemini.blueprint</groupId>
     <artifactId>gemini-blueprint</artifactId>
-    <!-- Note: When updating the version, ensure it is a valid OSGi version -->
+    <!-- CHANGE Note: When updating the version, ensure it is a valid OSGi version -->
     <version>4.0.0-atlassian-6-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>Gemini Blueprint</name>
