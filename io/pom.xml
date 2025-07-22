@@ -5,7 +5,7 @@
     <parent>
         <artifactId>gemini-blueprint</artifactId>
         <groupId>org.eclipse.gemini.blueprint</groupId>
-        <version>4.0.0-atlassian-8-SNAPSHOT</version>
+        <version>4.0.0-atlassian-8</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
