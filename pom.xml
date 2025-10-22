@@ -232,6 +232,12 @@
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-core</artifactId>
                 <version>${spring.maven.artifact.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>commons-logging</groupId>
+                        <artifactId>commons-logging</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
 
             <dependency>
@@ -293,7 +299,13 @@
             <dependency>
                 <groupId>com.atlassian.platform.dependencies</groupId>
                 <artifactId>platform-spring-bundle</artifactId>
-                <version>8.0.0-jakarta-001</version>
+                <version>8.4.0-m01-SNAPSHOT</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>commons-logging</groupId>
+                        <artifactId>commons-logging</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
 
         </dependencies>
