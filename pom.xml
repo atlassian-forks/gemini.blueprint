@@ -5,7 +5,7 @@
     <groupId>org.eclipse.gemini.blueprint</groupId>
     <artifactId>gemini-blueprint</artifactId>
     <!-- Note: When updating the version, ensure it is a valid OSGi version -->
-    <version>4.0.0-atlassian-9-SNAPSHOT</version>
+    <version>5.0.0-atlassian-1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>Gemini Blueprint</name>
     <url>http://www.eclipse.org/gemini/blueprint/</url>
@@ -23,8 +23,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- Spring version -->
-        <spring.maven.artifact.version>6.2.0</spring.maven.artifact.version>
-        <spring.base.version>6.0.0</spring.base.version>
+        <spring.maven.artifact.version>7.0.7</spring.maven.artifact.version>
+        <spring.base.version>7.0.0</spring.base.version>
 
         <symName.prefix>org.eclipse.gemini.blueprint</symName.prefix>
         <spring.osgi.symbolic.name>${project.groupId}.${project.artifactId}</spring.osgi.symbolic.name>
@@ -55,7 +55,7 @@
         <policy.url>..${file.separator}policy.all</policy.url>
 
         <!-- common version ranges -->
-        <spring.version.range.nq>[${spring.base.version},7)</spring.version.range.nq>
+        <spring.version.range.nq>[${spring.base.version},8)</spring.version.range.nq>
         <spring.version.range>"${spring.version.range.nq}"</spring.version.range>
         <gemini.blueprint.version.range.nq>[${project.version},${project.version}]</gemini.blueprint.version.range.nq>
         <gemini.blueprint.version.range>"${gemini.blueprint.version.range.nq}"</gemini.blueprint.version.range>
@@ -232,6 +232,12 @@
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-core</artifactId>
                 <version>${spring.maven.artifact.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>commons-logging</groupId>
+                        <artifactId>commons-logging</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
 
             <dependency>
@@ -293,7 +299,7 @@
             <dependency>
                 <groupId>com.atlassian.platform.dependencies</groupId>
                 <artifactId>platform-spring-bundle</artifactId>
-                <version>8.0.0-jakarta-001</version>
+                <version>9.0.0-m010</version>
             </dependency>
 
         </dependencies>
