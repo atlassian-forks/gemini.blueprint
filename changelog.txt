@@ -2,6 +2,9 @@ ECLIPSE GEMINI BLUEPRINT CHANGELOG
 ==================================
 http://www.eclipse.org/gemini/blueprint
 
+Changes in version 5.1.0
+* Upgrade to spring 7.1
+
 Changes in version 5.0.0 (2026-04-24)
 * Migrate to spring 7
 

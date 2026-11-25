@@ -5,7 +5,7 @@
     <groupId>org.eclipse.gemini.blueprint</groupId>
     <artifactId>gemini-blueprint</artifactId>
     <!-- Note: When updating the version, ensure it is a valid OSGi version -->
-    <version>5.0.0-atlassian-3-SNAPSHOT</version>
+    <version>5.1.0-atlassian-1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>Gemini Blueprint</name>
     <url>http://www.eclipse.org/gemini/blueprint/</url>
@@ -23,7 +23,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- Spring version -->
-        <spring.maven.artifact.version>7.0.8</spring.maven.artifact.version>
+        <spring.maven.artifact.version>7.1.0</spring.maven.artifact.version>
         <spring.base.version>7.0.0</spring.base.version>
 
         <symName.prefix>org.eclipse.gemini.blueprint</symName.prefix>
@@ -299,7 +299,7 @@
             <dependency>
                 <groupId>com.atlassian.platform.dependencies</groupId>
                 <artifactId>platform-spring-bundle</artifactId>
-                <version>9.0.0-m010</version>
+                <version>9.1.0-m002-1366ae6819d</version>
             </dependency>
 
         </dependencies>
